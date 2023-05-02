@@ -1,21 +1,24 @@
-import React ,{useContext} from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom'
+
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
 import Search from '../../assets/Search';
 import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
-import { AuthContext, FirebaseContext } from '../../store/context';
+import { AuthContext, FirebaseContext } from '../../store/Context';
+
 function Header() {
-  const {user}=useContext(AuthContext)
-  const {firebase}=useContext(FirebaseContext)
-  const history=useHistory()
+  const history = useHistory();
+  const { user } = useContext(AuthContext)
+  const { firebase } = useContext(FirebaseContext)
+  
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
         <div className="brandName">
-          <OlxLogo></OlxLogo>
+          <Link to={'/'}><OlxLogo></OlxLogo></Link>
         </div>
         <div className="placeSearch">
           <Search></Search>
@@ -38,20 +41,20 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>{user ? `Hello ${user.displayName}` : <button style={{border:0}} onClick={()=>history.push('/login')}>Login</button>} </span>
+          <span>{user ? `Welcome ${user.displayName}` : <Link to={'/login'} >Login</ Link>}</span>
           <hr />
         </div>
-        {user &&  <span style={{cursor:'pointer'}} onClick={()=>{
-          firebase.auth().signOut();
-          history.push('/')
-        }}>Logout</span>}
+
+        {user && <span onClick={() => {
+          firebase.auth().signOut()
+          history.push('/login')
+        }} > Logout</span>}
+
         <div className="sellMenu">
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>
-            <span onClick={()=>{
-              history.push('/create')
-            }}>SELL</span>
+            <Link to={'/create'}><span>SELL</span></Link>
           </div>
         </div>
       </div>

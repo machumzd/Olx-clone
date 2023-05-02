@@ -1,35 +1,35 @@
-import React,{useState,useContext} from 'react';
-import {FirebaseContext} from '../../store/context'  
+import React, { useState, useContext } from 'react';
+import { FirebaseContext } from '../../store/Context';
 import Logo from '../../olx-logo.png';
 import './Login.css';
-import {useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function Login() {
-  const [email,setEmail]=useState("")
-  const [password,setPassword]=useState("")
-  const history=useHistory()
-  const {firebase}=useContext(FirebaseContext)
-  const handleLogin=(e)=>{
-e.preventDefault()
-firebase.auth().signInWithEmailAndPassword(email,password).then((result)=>{
-  history.push('/')
-}).catch((error)=>{
-  alert(error.message)
-})
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { firebase } = useContext(FirebaseContext)
+  const history = useHistory()
+  const handleLogin = (e) => {
+    e.preventDefault()
+    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+      history.push('/')
+    }).catch((err) => {
+      alert(err.msg)
+    })
   }
   return (
     <div>
       <div className="loginParentDiv">
-        <img width="200px" height="200px" src={Logo} alt="network error"></img>
+        <img width="200px" height="200px" src={Logo}></img>
         <form onSubmit={handleLogin}>
           <label htmlFor="fname">Email</label>
           <br />
           <input
             className="input"
             type="email"
-            id="fname"
             value={email}
-            onChange={(e)=>setEmail(e.target.value)}
+            id="fname"
+            onChange={(e) => setEmail(e.target.value)}
             name="email"
             defaultValue="John"
           />
@@ -41,7 +41,7 @@ firebase.auth().signInWithEmailAndPassword(email,password).then((result)=>{
             type="password"
             id="lname"
             value={password}
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             name="password"
             defaultValue="Doe"
           />
@@ -49,7 +49,7 @@ firebase.auth().signInWithEmailAndPassword(email,password).then((result)=>{
           <br />
           <button>Login</button>
         </form>
-        <a>Signup</a>
+        <Link to={'/signup'}>Signup</Link>
       </div>
     </div>
   );

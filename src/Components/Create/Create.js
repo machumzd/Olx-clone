@@ -1,35 +1,36 @@
 import React, { Fragment, useContext, useState } from 'react';
 import './Create.css';
 import Header from '../Header/Header';
-import {FirebaseContext,AuthContext}  from '../../store/context'
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
+import {FirebaseContext, AuthContext} from '../../store/Context'
+
 const Create = () => {
-  console.log("imin create")
-  const history=useHistory()
-  const {firebase}=useContext(FirebaseContext)
-  const {user}=useContext(AuthContext)
-  const [name, setName] = useState('')
-  const [category, setCategory] = useState('')
-  const [price, setPrice] = useState("")
-  const [image, setImage] = useState(null)
-  const date=new Date()
-  const handleSubmit=()=>{
-    console.log("submit page")
-      firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
-        ref.getDownloadURL().then((url)=>{
-          console.log("url is"+url)
-          firebase.firestore().collection('products').add({
-            name,
-            category,
-            price,
-            url,
-            userId:user.uid,
-            createdAt:date.toDateString()
-          })
-          history.push('/')
+  const {firebase} = useContext(FirebaseContext)
+  const {user} = useContext(AuthContext)
+  const history = useHistory()
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState(null);
+  const date = new Date();
+  const handleSubmit = () => {
+    firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
+      ref.getDownloadURL().then((url) => {
+        console.log(url);
+        firebase.firestore().collection('products').add({
+          name,
+          category,
+          price,
+          url,
+          userId: user.uid,
+          createdAt: date.toDateString() 
+
         })
+        history.push('/')
       })
+    })
   }
+
   return (
     <Fragment>
       <Header />
@@ -40,8 +41,8 @@ const Create = () => {
             <input
               className="input"
               type="text"
-              id="fname"
               value={name}
+              id="fname"
               onChange={(e) => setName(e.target.value)}
               name="Name"
               defaultValue="John"
@@ -52,8 +53,8 @@ const Create = () => {
             <input
               className="input"
               type="text"
-              id="fname"
               value={category}
+              id="fname"
               onChange={(e) => setCategory(e.target.value)}
               name="category"
               defaultValue="John"
@@ -61,20 +62,27 @@ const Create = () => {
             <br />
             <label htmlFor="fname">Price</label>
             <br />
-            <input className="input" type="number" id="fname" value={price} onChange={(e) => setPrice(e.target.value)} name="Price" />
+            <input
+              className="input"
+              type="number"
+              value={price}
+              id="fname"
+              onChange={(e) => { setPrice(e.target.value) }}
+              name="Price" />
             <br />
-          
           <br />
-          <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image):""}></img>
-          
+          <img
+            alt="Posts"
+            width="200px"
+            height="200px"
+            src={image ? URL.createObjectURL(image) : ''}></img>
             <br />
-            <input onChange={(e)=>{
+            <input 
+            onChange={(e) => {
               setImage(e.target.files[0])
-            }}
-            type="file" />
+            }} type="file" />
             <br />
             <button onClick={handleSubmit} className="uploadBtn">upload and Submit</button>
-          
         </div>
       </card>
     </Fragment>
