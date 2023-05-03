@@ -16,21 +16,21 @@ export default function Signup() {
   const handleSumbit = (e) => {
     e.preventDefault()
     firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=> {
-      result.user.updateProfile({displayName: username}).then(() => {
+      result.user.updateProfile({displayName: username})
+      .then(() => {
         firebase.firestore().collection('users').add({
           id: result.user.uid,
           username: username,
           phone: phone
-        }).then(()=> {
-          history.push("/login")
         })
       })
+      history.push("/login")
     })
   }
   return (
     <div>
       <div className="signupParentDiv">
-        <img width="200px" height="200px" src={Logo}></img>
+        <img width="200px" height="200px" src={Logo} alt='network error'></img>
         <form onSubmit={handleSumbit}>
           <label htmlFor="fname">Username</label>
           <br />

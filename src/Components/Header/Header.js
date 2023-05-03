@@ -41,7 +41,7 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>{user ? `Welcome ${user.displayName}` : <Link to={'/login'} >Login</ Link>}</span>
+        <span>{user ? `Welcome ${user.displayName}` : <Link to={'/login'} >Login</ Link>}</span>
           <hr />
         </div>
 
@@ -54,7 +54,10 @@ function Header() {
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>
+            {user ?
             <Link to={'/create'}><span>SELL</span></Link>
+            :<Link to={'/login'}><span>SELL</span></Link>
+}
           </div>
         </div>
       </div>

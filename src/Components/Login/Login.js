@@ -14,13 +14,13 @@ function Login() {
     firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
       history.push('/')
     }).catch((err) => {
-      alert(err.msg)
+      alert(err.message)
     })
   }
   return (
     <div>
       <div className="loginParentDiv">
-        <img width="200px" height="200px" src={Logo}></img>
+        <img width="200px" height="200px" src={Logo} alt="network error"></img>
         <form onSubmit={handleLogin}>
           <label htmlFor="fname">Email</label>
           <br />

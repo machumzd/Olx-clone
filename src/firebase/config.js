@@ -4,13 +4,13 @@ import 'firebase/firestore'
 import 'firebase/storage' 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBNxZfUB628u7VUnAhIcPwBJdiTX4ePPhE",
-    authDomain: "first-85b4f.firebaseapp.com",
-    projectId: "first-85b4f",
-    storageBucket: "first-85b4f.appspot.com",
-    messagingSenderId: "369655836034",
-    appId: "1:369655836034:web:a5e38431a7a4474852b39b",
-    measurementId: "G-T108NY4TX8"
-  };
+  apiKey: "AIzaSyCpY6YmpPnpFeOLANCaKewkxCH0Uh56dWc",
+  authDomain: "olx-clone-bbb03.firebaseapp.com",
+  projectId: "olx-clone-bbb03",
+  storageBucket: "olx-clone-bbb03.appspot.com",
+  messagingSenderId: "841508462135",
+  appId: "1:841508462135:web:ed060c2a2447f7869069b2",
+  measurementId: "G-392DXEZ4CJ"
+};
 
 export default firebase.initializeApp(firebaseConfig)
